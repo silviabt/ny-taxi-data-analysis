@@ -5,26 +5,25 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 @Service
 public class SparkService {
 
-    public static void dataAnalyse(String filePath, String fileName) {
-        SparkSession spark = SparkSession
-                .builder()
-                .appName("Java Spark SQL basic example")
-                .master("local")
-                .getOrCreate();
+    @Autowired
+    private SparkSession sparkSession;
 
-        Dataset<Row> parquetFileDf = spark.read().parquet(filePath + fileName);
+    public void dataAnalyse(String filePath, String fileName) {
+        Dataset<Row> parquetFileDf = sparkSession.read().parquet(filePath + fileName);
         parquetFileDf.createOrReplaceTempView("parquetFile");
 
-
-        Dataset<Row> namesDF = spark.sql("SELECT payment_type FROM parquetFile WHERE dropoff_taxizone_id = 19");
-        Dataset<String> namesDS = namesDF.map(
-                (MapFunction<Row, String>) row -> "Payment: " + row.getString(0),
-                Encoders.STRING());
+        Dataset<Row> namesDF = sparkSession.sql("SELECT pickup_datetime FROM parquetFile WHERE dropoff_taxizone_id = 19");
+        Dataset<Timestamp> namesDS = namesDF.map(
+                (MapFunction<Row, Timestamp>) row -> row.getTimestamp(0),
+                Encoders.TIMESTAMP());
         namesDS.show();
         System.out.println("Count:" + namesDF.count());
     }
