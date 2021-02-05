@@ -26,6 +26,6 @@ public class SparkService {
                 (MapFunction<Row, String>) row -> "Payment: " + row.getString(0),
                 Encoders.STRING());
         namesDS.show();
-        System.out.println(namesDF.count());
+        System.out.println("Count:" + namesDF.count());
     }
 }
