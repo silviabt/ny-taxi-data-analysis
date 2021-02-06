@@ -1,7 +1,6 @@
 package com.nytaxi.dataanalysis.service;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import com.nytaxi.dataanalysis.exception.DataAnalysisException;
 import org.apache.spark.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,59 +9,40 @@ import java.io.File;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static com.nytaxi.dataanalysis.service.DataAnalysisUtil.*;
 import static org.apache.spark.sql.functions.*;
 
 @Service
 public class DataAnalysisService {
 
-    private static final String PARQUET = "parquet";
-
     @Autowired
     private SparkSession sparkSession;
 
     public void findPeekHour(String filePath) {
-        Logger.getLogger("org").setLevel(Level.ERROR);
-
         String[] paths = getFilesPaths(filePath);
         DataFrameReader dataFrameReader = sparkSession.read();
-
         Dataset<Row> taxiTrips = dataFrameReader.parquet(paths);
 
-        Column[] groupByColumns = {
-//                col("pickup_taxizone_id"),
-                month(col("pickup_datetime")).as("month"),
-                year(col("pickup_datetime")).as("year"),
-                hour(col("pickup_datetime")).as("hour")
-        };
+        Row[] aggMaxResult = (Row[]) taxiTrips
+                .groupBy(GROUP_BY_COLUMNS)
+                .agg(COUNT_TRIPS_AGG)
+                .select(SELECT_MAX_NO_OF_TRIPS)
+                .collect();
 
-        Column countTrips = count("trip_id").as("trips");
+        if (aggMaxResult.length < 1) {
+            throw new DataAnalysisException("There was a problem when analysing peek hour for the Taxi NY trips.");
+        }
 
-        Column[] selectMaxNoOfTrips = {
-                max("trips"),
-                first(col("month")),
-                first(col("year")),
-                first(col("hour"))
-        };
-
-        Row peek = ((Row[]) taxiTrips
-//                .filter(col("pickup_taxizone_id").equalTo("19"))
-                .groupBy(groupByColumns)
-                .agg(countTrips)
-                .select(selectMaxNoOfTrips)
-                .collect())[0];
-
-        int month = peek.getInt(1);
-        int year = peek.getInt(2);
-        int hour = peek.getInt(3);
+        Row peek = aggMaxResult[0];
+        Column condition = month(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(1))
+                .and(year(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(2)))
+                .and(hour(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(3)));
 
         taxiTrips
-                .filter(month(col("pickup_datetime")).equalTo(month)
-                        .and(year(col("pickup_datetime")).equalTo(year))
-                        .and(hour(col("pickup_datetime")).equalTo(hour))
-                )
+                .filter(condition)
                 .write()
                 .format(PARQUET)
-                .save("result.parquet");
+                .save(RESULT_PATH);
     }
 
     private String[] getFilesPaths(String filePath) {
