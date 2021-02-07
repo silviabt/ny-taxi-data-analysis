@@ -2,15 +2,19 @@ package com.nytaxi.dataanalysis.service;
 
 import org.apache.spark.sql.Column;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.apache.spark.sql.functions.*;
 
 public class DataAnalysisUtil {
 
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+
     public static final String PARQUET = "parquet";
     public static final String PICKUP_DATETIME_COL = "pickup_datetime";
-    public static final String RESULT_PATH = String.format("result-%s.parquet", LocalDateTime.now());
+    public static final String RESULT_PATH = String.format("result-%s.parquet", DATE_FORMAT.format(LocalDateTime.now()));
 
     public static final String MONTH_COL = "month";
     public static final String YEAR_COL = "year";

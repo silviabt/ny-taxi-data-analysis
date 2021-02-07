@@ -30,7 +30,7 @@ public class DataAnalysisService {
                 .collect();
 
         if (aggMaxResult.length < 1) {
-            throw new DataAnalysisException("There was a problem when analysing peek hour for the Taxi NY trips.");
+            throw new DataAnalysisException("There was a problem when analysing the peek hour for the Taxi NY trips.");
         }
 
         Row peek = aggMaxResult[0];
