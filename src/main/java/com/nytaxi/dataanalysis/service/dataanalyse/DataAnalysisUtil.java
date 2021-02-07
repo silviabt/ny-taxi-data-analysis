@@ -19,10 +19,11 @@ public class DataAnalysisUtil {
     public static final String YEAR_COL = "year";
     public static final String HOUR_COL = "hour";
     public static final String DAY_COL = "day";
+
     public static final String NO_TRIPS_COL = "trips";
     public static final String TRIP_ID_COL = "trip_id";
 
-    public static final Column[] GROUP_BY_COLUMNS = {
+    public static final Column[] GROUP_BY_PICKUP_DATETIME_COLS = {
             month(col(PICKUP_DATETIME_COL)).as(MONTH_COL),
             year(col(PICKUP_DATETIME_COL)).as(YEAR_COL),
             dayofmonth(col(PICKUP_DATETIME_COL)).as(DAY_COL),

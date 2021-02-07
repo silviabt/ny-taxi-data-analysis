@@ -32,7 +32,7 @@ public class DataAnalysisService {
         Dataset<Row> taxiTrips = dataFrameReader.parquet(paths);
 
         Row[] aggMaxResult = (Row[]) taxiTrips
-                .groupBy(GROUP_BY_COLUMNS)
+                .groupBy(GROUP_BY_PICKUP_DATETIME_COLS)
                 .agg(COUNT_TRIPS_AGG)
                 .select(SELECT_MAX_NO_OF_TRIPS)
                 .collect();
