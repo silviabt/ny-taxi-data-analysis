@@ -3,14 +3,12 @@ package com.nytaxi.dataanalysis.service.dataanalyse;
 import com.nytaxi.dataanalysis.domain.AnalysisResult;
 import com.nytaxi.dataanalysis.domain.Result;
 import com.nytaxi.dataanalysis.exception.DataAnalysisException;
+import com.nytaxi.dataanalysis.mapper.ResultMapper;
 import com.nytaxi.dataanalysis.service.FileHelperService;
 import com.nytaxi.dataanalysis.service.JsonWriterService;
 import org.apache.spark.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.Year;
 
 import static com.nytaxi.dataanalysis.service.dataanalyse.DataAnalysisUtil.*;
 import static org.apache.spark.sql.functions.*;
@@ -26,6 +24,9 @@ public class TaxiDataAnalysisService {
 
     @Autowired
     private FileHelperService fileHelperService;
+
+    @Autowired
+    private ResultMapper resultMapper;
 
     public AnalysisResult findPeekHour(String filePath) {
         String[] paths = fileHelperService.getFilesPaths(filePath);
@@ -48,7 +49,7 @@ public class TaxiDataAnalysisService {
                 .and(dayofmonth(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(3)))
                 .and(hour(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(4)));
 
-        Result result = buildResult(peek);
+        Result result = resultMapper.mapTo(peek);
 
         fileHelperService.createResultDir(RESULT_PATH);
         jsonWriterService.writeResultToFile(result, RESULT_PATH);
@@ -62,15 +63,6 @@ public class TaxiDataAnalysisService {
         return AnalysisResult.builder()
                 .result(result)
                 .resultLocation(RESULT_PATH)
-                .build();
-    }
-
-    private Result buildResult(Row peek) {
-        LocalDateTime peekHour = Year.of(peek.getInt(1)).atMonth(peek.getInt(2))
-                .atDay(peek.getInt(3)).atTime(peek.getInt(4), 0);
-
-        return Result.builder()
-                .peekHour(peekHour.toString())
                 .build();
     }
 }

@@ -16,4 +16,7 @@ public class ConfigurationValues {
 
     @Value("${data.location.path}")
     private String dataLocationPath;
+
+    @Value("${data.zones.location.path}")
+    private String dataZonesLocationPath;
 }

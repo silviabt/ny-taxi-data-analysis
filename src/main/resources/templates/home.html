@@ -27,5 +27,20 @@
                 <input class="btn btn-primary btn-lg" type="submit" value="Start analysis"/>
             </p>
         </form>
+
+        <form class="container jumbotron" action="#" th:action="@{/peek-hour-per-zone}" method="post">
+            <h2>NY Taxi data analysis</h2>
+
+            <p>Input: New York Taxi Data 2009-2016 in Parquet Format (1.5 mld trips)</p>
+
+            <div>
+                <p>Output:</p>
+                <p>Peek hour for the taxi trips and corresponding zone during 2009-2016:</p>
+            </div>
+
+            <p>
+                <input class="btn btn-primary btn-lg" type="submit" value="Start analysis"/>
+            </p>
+        </form>
     </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container jumbotron" >
+            <h2>NY Taxi data analysis</h2>
+
+            <p>Input: New York Taxi Data 2009-2016 in Parquet Format (1.5 mld trips)</p>
+
+            <div>
+                <p>Peek hour for the taxi trips and corresponding zone during 2009-2016:</p>
+
+                <div>
+                    <p th:if="${peekHourForZone.getPeekHour() != null}">
+                        <tr>
+                            <td th:text="'Peek hour for the taxi trips:' + ${peekHourForZone.getPeekHour()}" />
+                            <td th:text="'Zone:' + ${peekHourForZone.getZone().getZone()}" />
+                            <td th:text="'Borough:' + ${peekHourForZone.getZone().getBorough()}" />
+                        </tr>
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <p><a th:href="@{/data-analysis}">Go Back to main page</a></p>
+            </div>
+        </div>
+    </body>
+</html>
