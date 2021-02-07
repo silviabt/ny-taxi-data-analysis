@@ -1,5 +1,6 @@
 package com.nytaxi.dataanalysis.service.dataanalyse;
 
+import com.nytaxi.dataanalysis.domain.AnalysisResult;
 import com.nytaxi.dataanalysis.domain.Result;
 import com.nytaxi.dataanalysis.exception.DataAnalysisException;
 import com.nytaxi.dataanalysis.service.FileHelperService;
@@ -26,7 +27,7 @@ public class DataAnalysisService {
     @Autowired
     private FileHelperService fileHelperService;
 
-    public void findPeekHour(String filePath) {
+    public AnalysisResult findPeekHour(String filePath) {
         String[] paths = fileHelperService.getFilesPaths(filePath);
         DataFrameReader dataFrameReader = sparkSession.read();
         Dataset<Row> taxiTrips = dataFrameReader.parquet(paths);
@@ -57,6 +58,11 @@ public class DataAnalysisService {
                 .write()
                 .format(PARQUET)
                 .save(RESULT_PATH + "/result.parquet");
+
+        return AnalysisResult.builder()
+                .result(result)
+                .resultLocation(RESULT_PATH)
+                .build();
     }
 
     private Result buildResult(Row peek) {

@@ -1,0 +1,11 @@
+p {
+    font-family: sans-serif;
+}
+
+.container {
+    margin: 10px;
+}
+
+.result {
+    color: green;
+}

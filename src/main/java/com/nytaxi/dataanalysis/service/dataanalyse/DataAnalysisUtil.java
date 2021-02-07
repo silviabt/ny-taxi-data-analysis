@@ -39,5 +39,4 @@ public class DataAnalysisUtil {
             first(col(DAY_COL)),
             first(col(HOUR_COL))
     };
-
 }

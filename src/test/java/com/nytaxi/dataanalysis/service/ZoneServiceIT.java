@@ -2,7 +2,6 @@ package com.nytaxi.dataanalysis.service;
 
 import com.nytaxi.dataanalysis.domain.Zone;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
