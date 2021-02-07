@@ -50,7 +50,7 @@ public class DataAnalysisService {
 
         Result result = buildResult(peek);
 
-        fileHelperService.createResultDir();
+        fileHelperService.createResultDir(RESULT_PATH);
         jsonWriterService.writeResultToFile(result, RESULT_PATH);
 
         taxiTrips

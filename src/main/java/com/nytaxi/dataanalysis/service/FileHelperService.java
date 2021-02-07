@@ -6,16 +6,15 @@ import java.io.File;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static com.nytaxi.dataanalysis.service.dataanalyse.DataAnalysisUtil.RESULT_PATH;
-
 @Service
 public class FileHelperService {
 
-    public void createResultDir() {
-        File theDir = new File(RESULT_PATH);
-        if (!theDir.exists()){
-            theDir.mkdirs();
+    public boolean createResultDir(String path) {
+        File theDir = new File(path);
+        if (!theDir.exists()) {
+            return theDir.mkdirs();
         }
+        return false;
     }
 
     public String[] getFilesPaths(String filePath) {
