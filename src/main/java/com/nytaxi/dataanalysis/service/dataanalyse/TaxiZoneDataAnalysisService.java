@@ -33,10 +33,8 @@ public class TaxiZoneDataAnalysisService {
     private ResultMapper resultMapper;
 
     public Result findPeekHourForAllZones(String filePath, String zonesFilePath) {
-        String[] paths = fileHelperService.getFilesPaths(filePath);
-
         DataFrameReader dataFrameReader = sparkSession.read();
-        Dataset<Row> taxiTrips = dataFrameReader.parquet(paths);
+        Dataset<Row> taxiTrips = dataFrameReader.parquet(fileHelperService.getFilesPaths(filePath));
 
         Row[] aggMaxResult = (Row[]) taxiTrips
                 .groupBy(GROUP_BY_PICKUP_DATETIME_AND_ZONE_COLS)
