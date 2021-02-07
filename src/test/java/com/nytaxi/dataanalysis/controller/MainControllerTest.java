@@ -3,7 +3,7 @@ package com.nytaxi.dataanalysis.controller;
 import com.nytaxi.dataanalysis.config.ConfigurationValues;
 import com.nytaxi.dataanalysis.domain.AnalysisResult;
 import com.nytaxi.dataanalysis.domain.Result;
-import com.nytaxi.dataanalysis.service.dataanalyse.DataAnalysisService;
+import com.nytaxi.dataanalysis.service.dataanalyse.TaxiDataAnalysisService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ public class MainControllerTest {
     private MainController mainController;
 
     @Mock
-    private DataAnalysisService dataAnalysisService;
+    private TaxiDataAnalysisService taxiDataAnalysisService;
 
     @Mock
     private ConfigurationValues configurationValues;
@@ -57,7 +57,7 @@ public class MainControllerTest {
 
         String locationPath = "/test";
         when(configurationValues.getDataLocationPath()).thenReturn(locationPath);
-        when(dataAnalysisService.findPeekHour(locationPath))
+        when(taxiDataAnalysisService.findPeekHour(locationPath))
                 .thenReturn(anAnalysisResult());
 
         // Act & Assert

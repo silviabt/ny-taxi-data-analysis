@@ -2,7 +2,7 @@ package com.nytaxi.dataanalysis.controller;
 
 import com.nytaxi.dataanalysis.config.ConfigurationValues;
 import com.nytaxi.dataanalysis.domain.AnalysisResult;
-import com.nytaxi.dataanalysis.service.dataanalyse.DataAnalysisService;
+import com.nytaxi.dataanalysis.service.dataanalyse.TaxiDataAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MainController {
 
     @Autowired
-    private DataAnalysisService dataAnalysisService;
+    private TaxiDataAnalysisService taxiDataAnalysisService;
 
     @Autowired
     private ConfigurationValues configurationValues;
@@ -25,7 +25,7 @@ public class MainController {
 
     @PostMapping("/peek-hour")
     public String findPeek(Model model) {
-        AnalysisResult peekHour = dataAnalysisService.findPeekHour(configurationValues.getDataLocationPath());
+        AnalysisResult peekHour = taxiDataAnalysisService.findPeekHour(configurationValues.getDataLocationPath());
         model.addAttribute("result", peekHour.getResult());
         model.addAttribute("resultLocation", peekHour.getResultLocation());
         return "result";
