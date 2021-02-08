@@ -14,7 +14,6 @@ public class DataAnalysisUtil {
     public static final String PARQUET = "parquet";
     public static final String PICKUP_DATETIME_COL = "pickup_datetime";
     public static final String PICKUP_ZONE_COL = "pickup_taxizone_id";
-    public static final String RESULT_PATH = String.format("result-%s", DATE_FORMAT.format(LocalDateTime.now()));
 
     public static final String MONTH_COL = "month";
     public static final String YEAR_COL = "year";
@@ -57,4 +56,8 @@ public class DataAnalysisUtil {
             first(col(HOUR_COL)),
             first(col(PICKUP_ZONE_COL)),
     };
+
+    public static String getResultPath() {
+       return String.format("result-%s", DATE_FORMAT.format(LocalDateTime.now()));
+    }
 }

@@ -49,20 +49,21 @@ public class TaxiDataAnalysisService {
                 .and(dayofmonth(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(3)))
                 .and(hour(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(4)));
 
-       taxiTrips
+        String resultPath = DataAnalysisUtil.getResultPath();
+        taxiTrips
                 .where(condition)
                 .write()
                 .format(PARQUET)
-                .save(RESULT_PATH + "/result.parquet");
+                .save(resultPath + "/result.parquet");
 
         Result result = resultMapper.mapTo(peek);
 
-        fileHelperService.createResultDir(RESULT_PATH);
-        jsonWriterService.writeResultToFile(result, RESULT_PATH);
+        fileHelperService.createResultDir(resultPath);
+        jsonWriterService.writeResultToFile(result, resultPath);
 
         return AnalysisResult.builder()
                 .result(result)
-                .resultLocation(RESULT_PATH)
+                .resultLocation(resultPath)
                 .build();
     }
 }
