@@ -52,8 +52,30 @@ Result:
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
 3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
 which can be accessed from the browser at http://localhost:8080/data-analysis by clicking on Start analysis button.
-3. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data 
-obtained after the analysis 
+3. For the data analysis - spark-core_2.12 and spark-sql_2.12 were used:
+    - Apache Spark is a fast, in-memory data processing engine; 
+    - Apache Spark will automatically distribute the data across your cluster and parallelize the operation performed on them.
+    - Dataset was used because the data processing required functionality such as 
+    aggregation, count, max, sql queries; Also they store data in a more efficient manner than native RDDs taking
+    advantage of their schema.  
+4. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data obtained after the analysis
+```
+Result directory name: result-2021-02-08-20-30
+- json file = result-2021-02-08-20-30/result.json
+- taxi trips during peek hour in parquet format = result-2021-02-08-20-30/result.parquet 
+
+Result after data analysis of NYC taxi trips:
+
+The peak hour for the taxi trips: 2015-11-13 05:00 - 05:59
+
+{"peekHour":"2015-11-13T05:00"}
+
++----------+-----------+------------+----------+-----------+
+|max(trips)|first(year)|first(month)|first(day)|first(hour)|
++----------+-----------+------------+----------+-----------+
+|     56149|       2015|          11|        13|          5|
++----------+-----------+------------+----------+-----------+ 
+```
 
 ##### Note:
     Application developed and tested on
