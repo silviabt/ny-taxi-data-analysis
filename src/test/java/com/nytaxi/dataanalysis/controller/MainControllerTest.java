@@ -4,6 +4,7 @@ import com.nytaxi.dataanalysis.config.ConfigurationValues;
 import com.nytaxi.dataanalysis.domain.AnalysisResult;
 import com.nytaxi.dataanalysis.domain.Result;
 import com.nytaxi.dataanalysis.service.dataanalyse.TaxiDataAnalysisService;
+import com.nytaxi.dataanalysis.service.dataanalyse.TaxiZoneDataAnalysisService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,9 @@ public class MainControllerTest {
 
     @Mock
     private ConfigurationValues configurationValues;
+
+    @Mock
+    private TaxiZoneDataAnalysisService taxiZoneDataAnalysisService;
 
     private MockMvc mockMvc;
 
@@ -68,12 +72,37 @@ public class MainControllerTest {
                 .andExpect(view().name(expectedViewName));
     }
 
+    @Test
+    public void test_findPeekHourForAllZones() throws Exception {
+        // Arrange
+        String urlTemplate = "/peek-hour-per-zone";
+        String expectedViewName = "resultForZone";
+
+        String locationPath = "locationPath";
+        String zonesFilePath = "zonesFilePath";
+
+        when(configurationValues.getDataLocationPath()).thenReturn(locationPath);
+        when(configurationValues.getDataZonesLocationPath()).thenReturn(zonesFilePath);
+        when(taxiZoneDataAnalysisService.findPeekHourForAllZones(locationPath, zonesFilePath))
+                .thenReturn(aResult());
+
+        // Act & Assert
+        mockMvc.perform(post(urlTemplate))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("peekHourForZone"))
+                .andExpect(view().name(expectedViewName));
+    }
+
     private AnalysisResult anAnalysisResult() {
         return AnalysisResult.builder()
-                .result(Result.builder()
-                        .peekHour("peekHour")
-                        .build())
+                .result(aResult())
                 .resultLocation("result")
+                .build();
+    }
+
+    private Result aResult() {
+        return Result.builder()
+                .peekHour("peekHour")
                 .build();
     }
 }
