@@ -50,6 +50,8 @@ public class TaxiDataAnalysisService {
                 .and(hour(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(4)));
 
         String resultPath = DataAnalysisUtil.getResultPath();
+        fileHelperService.createResultDir(resultPath);
+
         taxiTrips
                 .where(condition)
                 .write()
@@ -58,7 +60,6 @@ public class TaxiDataAnalysisService {
 
         Result result = resultMapper.mapTo(peek);
 
-        fileHelperService.createResultDir(resultPath);
         jsonWriterService.writeResultToFile(result, resultPath);
 
         return AnalysisResult.builder()
