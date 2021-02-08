@@ -40,3 +40,23 @@ root
 ```
 Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 ```
+#### Context:
+
+- Given as an input a folder location containing the parquet files
+- After the execution the result should be delivered in an output folder containing the following:
+    - a json file containing the peak hour for the taxi trips
+    - all the taxi trips during the peak hour in parquet format
+    
+Result:
+1. A spring boot application which can be accessed on: http://localhost:8080/data-analysis
+2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
+3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
+3. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data
+
+##### Note:
+    Application developed and tested on
+    1. OS: Windows 10
+    2. Using: 
+        1. Java Version: 1.8.0_241
+        2. Apache Maven 3.6.3
+        3. Apache Spark Core and SQL 3.1.0
