@@ -52,7 +52,8 @@ Result:
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
 3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
 which can be accessed from the browser at http://localhost:8080/data-analysis by clicking on Start analysis button.
-3. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data
+3. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data 
+obtained after the analysis 
 
 ##### Note:
     Application developed and tested on
