@@ -12,9 +12,6 @@ import java.time.Year;
 public class ResultMapper {
 
     public Result mapTo(Row peek) {
-        if (peek.get(1) == null || peek.get(2) == null || peek.get(3) == null || peek.get(4) == null) {
-            return Result.builder().build();
-        }
         LocalDateTime peekHour = Year.of(peek.getInt(1)).atMonth(peek.getInt(2))
                 .atDay(peek.getInt(3)).atTime(peek.getInt(4), 0);
 

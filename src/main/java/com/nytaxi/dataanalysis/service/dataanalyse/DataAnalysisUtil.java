@@ -21,28 +21,28 @@ public class DataAnalysisUtil {
     public static final String HOUR_COL = "hour";
     public static final String DAY_COL = "day";
 
-    public static final String NO_TRIPS_COL = "trips";
+    public static final String TRIPS = "trips";
     public static final String TRIP_ID_COL = "trip_id";
 
     public static final Column[] GROUP_BY_PICKUP_DATETIME_COLS = {
-            month(col(PICKUP_DATETIME_COL)).as(MONTH_COL),
             year(col(PICKUP_DATETIME_COL)).as(YEAR_COL),
+            month(col(PICKUP_DATETIME_COL)).as(MONTH_COL),
             dayofmonth(col(PICKUP_DATETIME_COL)).as(DAY_COL),
             hour(col(PICKUP_DATETIME_COL)).as(HOUR_COL)
     };
 
     public static final Column[] GROUP_BY_PICKUP_DATETIME_AND_ZONE_COLS = {
             col(PICKUP_ZONE_COL),
-            month(col(PICKUP_DATETIME_COL)).as(MONTH_COL),
             year(col(PICKUP_DATETIME_COL)).as(YEAR_COL),
+            month(col(PICKUP_DATETIME_COL)).as(MONTH_COL),
             dayofmonth(col(PICKUP_DATETIME_COL)).as(DAY_COL),
             hour(col(PICKUP_DATETIME_COL)).as(HOUR_COL)
     };
 
-    public static final Column COUNT_TRIPS_AGG = count(TRIP_ID_COL).as(NO_TRIPS_COL);
+    public static final Column COUNT_TRIPS_AGG = count(TRIP_ID_COL).as(TRIPS);
 
     public static final Column[] SELECT_MAX_NO_OF_TRIPS = {
-            max(NO_TRIPS_COL),
+            max(TRIPS),
             first(col(YEAR_COL)),
             first(col(MONTH_COL)),
             first(col(DAY_COL)),
@@ -50,7 +50,7 @@ public class DataAnalysisUtil {
     };
 
     public static final Column[] SELECT_MAX_NO_OF_TRIPS_WITH_ZONE = {
-            max(NO_TRIPS_COL),
+            max(TRIPS),
             first(col(YEAR_COL)),
             first(col(MONTH_COL)),
             first(col(DAY_COL)),
