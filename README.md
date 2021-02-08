@@ -42,12 +42,13 @@ Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.
 ```
 #### Context:
 
-- Given as an input a folder location containing the parquet files
+- Given as an input a folder location containing the parquet files containing New York Taxi Data 2009-2016
 - After the execution the result should be delivered in an output folder containing the following:
     - a json file containing the peak hour for the taxi trips
     - all the taxi trips during the peak hour in parquet format
     
-Result:
+Implementation Results:
+
 1. A spring boot application which can be accessed on: http://localhost:8080/data-analysis
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
 3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
