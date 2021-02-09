@@ -61,19 +61,21 @@ which can be accessed from the browser at http://localhost:8080/data-analysis by
     advantage of their schema.  
 4. The result directory name is of form: result-yyyy-MM-dd-HH-mm containing the result.json and result.parquet data obtained after the analysis
 ```
-Result directory name: result-2021-02-08-20-30
-- json file = result-2021-02-08-20-30/result.json
-- taxi trips during peek hour in parquet format = result-2021-02-08-20-30/result.parquet 
+Result directory name: result-2021-02-09-13-53
+- json file = result-2021-02-09-13-53/result.json
+- taxi trips during peek hour in parquet format = result-2021-02-09-13-53/result.parquet 
 
 Result after data analysis of NYC taxi trips:
 
-The peak hour for the taxi trips: 2016-06-20 10:00 - 10:59
+The peak hour for the taxi trips: 2016-06-20 07:00-07:59
 
-{"peekHour":"2016-06-20 10:00:00.0"}
+{"peekHour":"2016-06-20 07-00"}
 
 ```
 
 #### Future work
+
+
 
 
 ##### Note:
