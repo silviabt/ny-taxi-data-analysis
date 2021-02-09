@@ -55,7 +55,7 @@ public class TaxiDataAnalysisService {
         fileHelperService.createResultDir(resultPath);
 
         taxiTrips
-                .where(date_trunc(DATE_TRUNC_FORMAT, col(PICKUP_DATETIME_COL)).equalTo(peek.getTimestamp(1)))
+                .where(date_trunc(DATE_TRUNC_FORMAT, col(PICKUP_DATETIME_COL)).equalTo(peek.get(1)))
                 .write()
                 .format(PARQUET)
                 .save(resultPath + "/result.parquet");
