@@ -46,6 +46,17 @@ Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.
 - After the execution the result should be delivered in an output folder containing the following:
     - a json file containing the peak hour for the taxi trips
     - all the taxi trips during the peak hour in parquet format
+  
+#### Application Setup:
+
+1. In src/main/resources/application.properties the following need to be defined:
+- data.location.path -> path to folder location containing the parquet files containing New York Taxi Data 2009-2016
+- data.zones.location.path -> path to folder location containing the Taxi Lookup Tables
+
+2. Other prerequisites:
+- Java Version: >= 1.8
+- Apache Maven: 3.6.3
+- Winutils hadoop and HADOOP_HOME set in system environment variables
     
 #### Implementation Results:
 
