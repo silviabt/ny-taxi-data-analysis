@@ -56,7 +56,7 @@ public class MainControllerTest {
     @Test
     public void findPeek() throws Exception {
         // Arrange
-        String urlTemplate = "/peek-hour";
+        String urlTemplate = "/peak-hour";
         String expectedViewName = "result";
 
         String locationPath = "/test";
@@ -75,7 +75,7 @@ public class MainControllerTest {
     @Test
     public void test_findPeekHourForAllZones() throws Exception {
         // Arrange
-        String urlTemplate = "/peek-hour-per-zone";
+        String urlTemplate = "/peak-hour-per-zone";
         String expectedViewName = "resultForZone";
 
         String locationPath = "locationPath";
@@ -102,7 +102,7 @@ public class MainControllerTest {
 
     private Result aResult() {
         return Result.builder()
-                .peekHour("peekHour")
+                .peakHour("peekHour")
                 .build();
     }
 }

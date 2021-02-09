@@ -28,7 +28,7 @@ public class MainController {
         return "home";
     }
 
-    @PostMapping("/peek-hour")
+    @PostMapping("/peak-hour")
     public String findPeek(Model model) {
         AnalysisResult peekHour = taxiDataAnalysisService.findPeekHour(configurationValues.getDataLocationPath());
         model.addAttribute("result", peekHour.getResult());
@@ -36,7 +36,7 @@ public class MainController {
         return "result";
     }
 
-    @PostMapping("/peek-hour-per-zone")
+    @PostMapping("/peak-hour-per-zone")
     public String findPeekHourForAllZones(Model model) {
         Result peekHourForZone = taxiZoneDataAnalysisService
                 .findPeekHourForAllZones(configurationValues.getDataLocationPath(),

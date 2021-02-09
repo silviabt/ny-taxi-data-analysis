@@ -10,7 +10,7 @@ import lombok.Setter;
 @Builder
 public class Result {
 
-    private String peekHour;
+    private String peakHour;
 
     @JsonIgnore
     private Zone zone;

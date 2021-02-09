@@ -17,9 +17,9 @@
                 <p>Peek hour for the taxi trips and corresponding zone during 2009-2016:</p>
 
                 <div>
-                    <p th:if="${peekHourForZone.getPeekHour() != null}">
+                    <p th:if="${peekHourForZone.getPeakHour() != null}">
                         <tr>
-                            <td th:text="'Peek hour for the taxi trips:' + ${peekHourForZone.getPeekHour()}" />
+                            <td th:text="'Peek hour for the taxi trips:' + ${peekHourForZone.getPeakHour()}" />
                             <td th:text="'Zone:' + ${peekHourForZone.getZone().getZone()}" />
                             <td th:text="'Borough:' + ${peekHourForZone.getZone().getBorough()}" />
                         </tr>

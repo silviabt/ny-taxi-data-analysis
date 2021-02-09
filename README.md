@@ -62,7 +62,7 @@ Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.
 
 1. A spring boot application which can be accessed on: http://localhost:8080/data-analysis
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
-3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
+3. The application exposes a REST post endpoint http://localhost:8080/peak-hour for obtaining the peak hour for the taxi trips 
 which can be accessed from the browser at http://localhost:8080/data-analysis by clicking on Start analysis button.
 3. For the data analysis I researched and used: spark-core_2.12 and spark-sql_2.12
     - Apache Spark is a fast, in-memory data processing engine; 

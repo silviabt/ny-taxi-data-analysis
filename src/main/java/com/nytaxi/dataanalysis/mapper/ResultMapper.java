@@ -16,7 +16,7 @@ public class ResultMapper {
 
     public Result mapTo(Row peek) {
         return Result.builder()
-                .peekHour(
+                .peakHour(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm")
                                 .format(ZonedDateTime
                                         .ofInstant(peek.getTimestamp(1).toInstant(),

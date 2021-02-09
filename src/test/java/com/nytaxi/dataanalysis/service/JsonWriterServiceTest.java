@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterServiceTest {
 
@@ -23,7 +22,7 @@ public class JsonWriterServiceTest {
     public void writeResultToFile() {
         // Arrange
         Result result = Result.builder()
-                .peekHour("test")
+                .peakHour("test")
                 .build();
         String filePath = "target";
 
