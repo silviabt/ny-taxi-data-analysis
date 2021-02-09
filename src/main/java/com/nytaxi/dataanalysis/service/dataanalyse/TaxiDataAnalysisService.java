@@ -6,13 +6,20 @@ import com.nytaxi.dataanalysis.exception.DataAnalysisException;
 import com.nytaxi.dataanalysis.mapper.ResultMapper;
 import com.nytaxi.dataanalysis.service.FileHelperService;
 import com.nytaxi.dataanalysis.service.JsonWriterService;
-import org.apache.spark.sql.*;
+import org.apache.spark.sql.DataFrameReader;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.nytaxi.dataanalysis.service.dataanalyse.DataAnalysisUtil.*;
-import static org.apache.spark.sql.functions.*;
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.date_trunc;
 
+/**
+ * Service used to analyse taxi data and retrieve peek hour for all taxi trips
+ */
 @Service
 public class TaxiDataAnalysisService {
 
@@ -34,7 +41,7 @@ public class TaxiDataAnalysisService {
         Dataset<Row> taxiTrips = dataFrameReader.parquet(paths);
 
         Row[] aggPeekResult = (Row[]) taxiTrips
-                .groupBy(GROUP_BY_PICKUP_DATETIME_COLS)
+                .groupBy(GROUP_BY_PICKUP_DATETIME)
                 .agg(COUNT_TRIPS_AGG)
                 .select(SELECT_MAX_NO_OF_TRIPS)
                 .collect();
@@ -44,16 +51,11 @@ public class TaxiDataAnalysisService {
         }
 
         Row peek = aggPeekResult[0];
-        Column condition = year(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(1))
-                .and(month(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(2)))
-                .and(dayofmonth(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(3)))
-                .and(hour(col(PICKUP_DATETIME_COL)).equalTo(peek.getInt(4)));
-
         String resultPath = DataAnalysisUtil.getResultPath();
         fileHelperService.createResultDir(resultPath);
 
         taxiTrips
-                .where(condition)
+                .where(date_trunc(DATE_TRUNC_FORMAT, col(PICKUP_DATETIME_COL)).equalTo(peek.getTimestamp(1)))
                 .write()
                 .format(PARQUET)
                 .save(resultPath + "/result.parquet");

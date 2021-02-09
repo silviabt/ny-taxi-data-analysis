@@ -47,7 +47,7 @@ Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.
     - a json file containing the peak hour for the taxi trips
     - all the taxi trips during the peak hour in parquet format
     
-Implementation Results:
+#### Implementation Results:
 
 1. A spring boot application which can be accessed on: http://localhost:8080/data-analysis
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
@@ -67,16 +67,14 @@ Result directory name: result-2021-02-08-20-30
 
 Result after data analysis of NYC taxi trips:
 
-The peak hour for the taxi trips: 2015-11-13 05:00 - 05:59
+The peak hour for the taxi trips: 2016-06-20 10:00 - 10:59
 
-{"peekHour":"2015-11-13T05:00"}
+{"peekHour":"2016-06-20 10:00:00.0"}
 
-+----------+-----------+------------+----------+-----------+
-|max(trips)|first(year)|first(month)|first(day)|first(hour)|
-+----------+-----------+------------+----------+-----------+
-|     56149|       2015|          11|        13|          5|
-+----------+-----------+------------+----------+-----------+ 
 ```
+
+#### Future work
+
 
 ##### Note:
     Application developed and tested on
