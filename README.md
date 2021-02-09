@@ -53,7 +53,7 @@ Data can be found here: https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.
 2. In application.properties we can set the input folder location containing the parquet files: ``` data.location.path ```
 3. The application exposes a REST post endpoint http://localhost:8080/peek-hour for obtaining the peak hour for the taxi trips 
 which can be accessed from the browser at http://localhost:8080/data-analysis by clicking on Start analysis button.
-3. For the data analysis - spark-core_2.12 and spark-sql_2.12 were used:
+3. For the data analysis I researched and used: spark-core_2.12 and spark-sql_2.12
     - Apache Spark is a fast, in-memory data processing engine; 
     - Apache Spark will automatically distribute the data across your cluster and parallelize the operation performed on them.
     - Dataset was used because the data processing required functionality such as 
@@ -71,11 +71,18 @@ The peak hour for the taxi trips: 2016-06-20 07:00-07:59
 
 {"peekHour":"2016-06-20 07-00"}
 
++----------+-------------------+
+|max(trips)|        first(date)|
++----------+-------------------+
+|     56149|2016-06-20 07:00:00|
++----------+-------------------+
+
 ```
 
 #### Future work
 
-
+- For this solution I used Intellij IDEA to run Spark in local mode with 3 worker threads - which takes around half an hour to analyse all the New York Taxi Data 2009-2016. 
+For future improvements I would try to scale computation by adding more spark nodes and running in cluster mode.
 
 
 ##### Note:
