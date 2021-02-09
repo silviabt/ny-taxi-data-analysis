@@ -74,13 +74,13 @@ which can be accessed from the browser at http://localhost:8080/data-analysis by
 ```
 Result directory name: result-2021-02-09-13-53
 - json file = result-2021-02-09-13-53/result.json
-- taxi trips during peek hour in parquet format = result-2021-02-09-13-53/result.parquet 
+- taxi trips during peak hour in parquet format = result-2021-02-09-13-53/result.parquet 
 
 Result after data analysis of NYC taxi trips:
 
 The peak hour for the taxi trips: 2016-06-20 07:00-07:59
 
-{"peekHour":"2016-06-20 07-00"}
+{"peakHour":"2016-06-20 07-00"}
 
 +----------+-------------------+
 |max(trips)|        first(date)|
